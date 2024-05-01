@@ -2,6 +2,7 @@ from main import *
 from openai import OpenAI
 from langchain_utils import invoke_chain
 import os
+from dotenv import load_dotenv
 
 make_sidebar()
 
@@ -9,7 +10,7 @@ st.markdown(f"Welcom **{username}")
 st.title("Langchain NL2SQL Chatbot")
 
 #set OpenAI API key from streamlit secrets
-api_key = 'sk-proj-tOKrREM5RbEDmNr5n10lT3BlbkFJluavcVJZEUbj4uRRiL9i'
+api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
 
 #Set s default model
@@ -20,6 +21,11 @@ if "openai_model" not in st.session_state:
 if "messages" not in st.session_state:
     # print("Creating session state")
     st.session_state.messages =[]
+
+# Display chat messages from history on app rerun
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 #Accept user input
 if prompt := st.chat_input("What is up?"):

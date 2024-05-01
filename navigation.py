@@ -19,7 +19,7 @@ def make_sidebar():
         st.write("")
 
         if st.session_state.get("logged_in", False):
-            st.page_link("pages/page1.py", label="Logged in")
+            st.page_link("pages/page.py", label="Logged in")
             st.write("")
             st.write("")
 

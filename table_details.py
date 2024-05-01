@@ -30,7 +30,7 @@ for f in csv_files:
         songs_data = pd.read_csv(f)
         songs_data.to_sql('song', conn, if_exists='replace', index=False)
 
-db = SQLDatabase.from_uri("sqlit:///Songs")
+db = SQLDatabase.from_uri("sqlite:///Songs")
 
 def get_table_details():
     # Read CSV file into d DataFrame

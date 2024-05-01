@@ -1,6 +1,6 @@
 import os
-
 from dotenv import load_dotenv
+import logging
 
 load_dotenv()
 
@@ -8,7 +8,6 @@ db_user = os.getenv("db_user")
 db_password = os.getenv("db_password")
 db_host = os.getenv("db_host")
 db_name = os.getenv("db_name")
-os.environ["OPENAI_API_KEY"] = 'sk-proj-tOKrREM5RbEDmNr5n10lT3BlbkFJluavcVJZEUbj4uRRiL9i'
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 from langchain_community.utilities.sql_database import SQLDatabase
@@ -20,11 +19,18 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 
 from operator import itemgetter
+import pandas as pd
+import streamlit as st
 
 from table_details import table_chain as select_table
 from prompts import final_prompt, answer_prompt
 
-import streamlit as st
+logging.basicConfig(filename='app.log',
+                    encoding='utf-8',
+                    level=logging.INFO,
+                    filemode='w',
+                    format='%(process)d-%(levelname)s-%(message)s')
+
 @st.cache_resource
 def get_chain():
     print('creating chain')
@@ -61,6 +67,5 @@ def invoke_chain(question,messages):
 
     except Exception as e:
         print (e)
-    
     if response:
         return response
