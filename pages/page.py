@@ -1,3 +1,4 @@
+from threading import Timer
 from main import *
 import os
 from openai import OpenAI
@@ -12,7 +13,8 @@ st.markdown(f"Welcome **{username}")
 st.title("Langchain NL2SQL chatbot")
 
 #set OpenAI API key from streamlit secrets
-api_key = os.getenv("OPENAI_API_KEY")
+# api_key = os.getenv("OPENAI_API_KEY")
+api_key = st.secrets["OPENAI_API_KEY"]
 client = OpenAI(api_key=api_key)
 
 files_uploaded = st.file_uploader('**Database Uploader :red[:warning: No Client Data]**', accept_multiple_files=True, type=['.db','.csv'])
@@ -55,11 +57,11 @@ if files_uploaded:
             with st.chat_message("assistant"):
                 print("Hitting openai callback function")
                 MODEL_NAME = "gpt-3.5-turbo"
-                start_time = timer()
+                start_time = Timer()
                 with get_openai_callback() as cb:
                     response = invoke_chain(prompt, st.session_state.messages)
                     st.markdown(response)
-                    end_time = timer()
+                    end_time = Timer()
                     model_time_execution = end_time - start_time
                     tpm = (cb.total_tokens*60)/model_time_execution
                     now_time = pd.to_datetime(datetime.now().strftime('%d/%m/%Y, %H:%M:%S'))
