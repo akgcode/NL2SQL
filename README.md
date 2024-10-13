@@ -1,5 +1,6 @@
 # NL2SQL
-From Natural Language to SQL query generator
+From Natural Language to SQL query generator. [Try this yourself](https://lang2sql.streamlit.app/)
+
 ## Natural Language to SQL | SQL Query Generator using Langchain 🦜️🔗 
 This repository contains code for a Streamlit application for interaction with SQLite3 database or a csv using natural language and generate the SQL query and consequent result. Also added examples for langchain demo to demonstrate the use of langchain simple llm calls and running chains using templates. 
 
