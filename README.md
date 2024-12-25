@@ -30,7 +30,8 @@ The goal of this project is to explore how various technologies can be implement
 ```
 virtualenv myenv
 source myenv/bin/activate #for ubuntu
-myenv/Scripts/activate.bat #for windows
+myenv/Scripts/activate #for windows
+deactivate #deactivate virtualenv on windows
 ```
 3. Install `langchain`,`openai`, `streamlit` and all other required libraries using pip from the requirements.txt file.
 ```
